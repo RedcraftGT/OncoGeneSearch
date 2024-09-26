@@ -115,7 +115,7 @@ streamlit run app.py
 ### Contact:
 For any issues, feature requests, or contributions, please reach out to:  
 **Your Name**  
-**Email: your.email@example.com**
+**Buisness Email: oncogenesearch@gmail.com**
 
 ---
 
