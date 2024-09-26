@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-from bravado.client import SwaggerClient
+import seaborn as sns
 import time  # For simulating progress
+from bravado.client import SwaggerClient
 
 # Define the URL for cBioPortal's Swagger API documentation
 api_url = 'https://www.cbioportal.org/api/v2/api-docs'
@@ -68,16 +68,18 @@ def display_mutation_data(mutations):
     # Display the top 5 mutations
     top_mutations = df.nlargest(5, 'Tumor Alt Count')
     
-    # Create a bar chart for visualization
+    # Create a bar chart for visualization using Seaborn
     st.write("Mutation Counts Chart:")
-    fig, ax = plt.subplots()
-    ax.bar(top_mutations['Gene'], top_mutations['Tumor Alt Count'], color='#7877e6')
-    ax.set_xlabel('Gene', color='white')
-    ax.set_ylabel('Tumor Alt Count', color='white')
-    ax.set_title('Top 5 Mutations by Tumor Alt Count', color='white')
-    fig.patch.set_facecolor('#2a2a36')
-    ax.set_facecolor('#2a2a36')
-    st.pyplot(fig)
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x='Gene', y='Tumor Alt Count', data=top_mutations, palette=['#7877e6'])
+    plt.xlabel('Gene', color='white')
+    plt.ylabel('Tumor Alt Count', color='white')
+    plt.title('Top 5 Mutations by Tumor Alt Count', color='white')
+    plt.gca().set_facecolor('#2a2a36')
+    plt.gcf().patch.set_facecolor('#2a2a36')
+    plt.xticks(color='white')
+    plt.yticks(color='white')
+    st.pyplot(plt)
 
     # Display the results in a table
     st.write("Top 5 mutations based on tumor alt count:")
